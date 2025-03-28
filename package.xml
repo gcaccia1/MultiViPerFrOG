@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>multiviperfrog</name>
+  <version>0.0.0</version>
+  <description>package for multi-viewpoint perception framework optimized globally</description>
+  <maintainer email="anonimous@user.where">Anonymous User</maintainer>
+  <!-- One license tag required, multiple allowed, one license per tag -->
+  <!-- Commonly used license strings: -->
+  <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
+  <license>TODO</license>
+  <author email="anonimous@user.where">Anonymous User</author>>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>ceres-solver</depend>
+  <depend>roscpp</depend>
+  <depend>roslib</depend>
+  <depend>std_msgs</depend>
+  <depend>open3d_conversions</depend>
+  <depend>eigen_conversions</depend>
+  <depend>tf</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>rosbag</depend>
+</package>

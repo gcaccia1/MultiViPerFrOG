@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- Main Node -->
+    <node name="multiviperfrog_node" pkg="multiviperfrog" type="multiviperfrog_node" output="screen">
+        <param name="optimize_multicam" value="false"/>
+    </node>
+    <!-- RViz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multiviperfrog)/rviz/deformable_odometry_cam1_noSF_noTraj.rviz"/>
+
+</launch>

@@ -1,0 +1,66 @@
+# Rosbag Path
+rosbag_path: '/media/vision_blender_MICCAI_300_frames_10hz_2_moving_no_tools.bag'
+# Setup
+num_cameras: 2
+snippet_length: 10
+show_reset_pose_between_snippets: true
+input_data_source: "ground_truth" # "ground_truth" or "inference", specifies the source of the data and sets the correct topics
+#input_data_source: "inference" # NOTE: if topic name is wrong, code will throw:
+### Error: RosRosbagDataProcessor: minimum delay found exceeds the accepted threshold.
+
+# Optimization Parameters
+optimize_odometries: true
+optimize_multicam: true
+no_optimization_just_processing: false
+run_odo_SVD: true
+run_odo_ICP: false # NOTE do not run ICP with both optimize_odometries and optimize_multicam true, or it will run on a
+# different point cloud w.r.t. the one used by SVd or optimize_odometries, see void indexSamplingOverlapRegion()
+# Robust Optimization Parameters
+use_huber_loss: false
+huber_loss_threshold: 0.0001
+# Outlier Removal Parameters
+#lambda_deformation: 0.16667
+lambda_deformation: 0.025 # good value for 10hz
+lambda_regularization: 0.000001 # smaller than 0.0001 does not work for rigid # seem to work for 10hz 0.000001
+max_abs_SF: 0.02 # 0.002 seems reasonable for 10hz #0.0015 on blender experiments 22-02-2025 (15mm per 1 second @10hz) # TODO verify this is not creating issues
+rigidity_label_update_interval: 1
+steepness_rigidity_label_trust: 0.0 # it is the value k exp of x^k where x is the labels average value
+ratio_rigidity_label_trust_a: 0.0 # 1.0 + steep 3.0 works also for 10hz slightly worse than 0.0,0.0
+ratio_rigidity_label_trust_b: 1.0
+use_absflow_GT_from_render_as_knowledge: false
+use_absflow_estimate_from_odometry_as_knowledge: false
+set_to_zero_flow_points_with_high_label_as_knowledge: false
+steepness_percentile_labels: 0.0 # it is the value k exp of x^k where x is the percentile, 1.0 is linear, higher punishes lower values more, 0.0 gives constant to 1.0
+ratio_percentile_labels_a: 0.0 # 1000 works with GT SF knowledge, 0.8 percentile, 0.00001 lambda reg, C1 and chain ON.
+ratio_percentile_labels_b: 1000.0 # 1000 works with GT SF knowledge, 0.8 percentile, 0.00001 lambda reg, C1 and chain ON.
+labels_upper_percentile: 0.7
+ratio_upper_threshold_labels_a: 0.0
+ratio_upper_threshold_labels_b: 1000.0
+labels_higher_threshold: 0.9
+
+# Point Cloud Parameters
+cloud_original_height: 512
+cloud_original_width: 640
+points_overlap_threshold: 4e-04 # 1e-04 for 50% points w.r.t.4e in the new implementation with the kdtree cloud downsampled, this depends a lot on resolution
+downsampledcloud_to_overlap_threshold: 5e-03
+seed_random_downsampling: 99
+desired_downsampled_points_number_uniform: 1000
+desired_downsampled_points_number_random: 1000
+downsample_before_preprocessing: false
+downsample_after_preprocessing: true
+downsample_ICP: false
+
+# Cost Block Scales
+alpha_RCM: 0.0
+alpha_pointsA: 1.0
+alpha_pointsB: 1.0
+alpha_DataAssC0: 1.0
+alpha_DataAssC1: 1.0
+alpha_SF_A: 0.0
+alpha_SF_B: 0.0
+alpha_SF: 0.0
+alpha_chain: 1.0
+alpha_odoA: 0.0
+alpha_odoB: 0.0
+alpha_C2C0: 0.0
+alpha_C2C1: 0.0

@@ -1,0 +1,22 @@
+services:
+  multiviperfrog:
+    image: multiviperfrog
+    container_name: ubuntu_2004_noetic
+    build:
+      dockerfile: docker/cpu.Dockerfile
+    volumes:
+      - "${MEDIA_MOUNT:-./media}:/media:ro" # rosbags
+      - "${CONFIG_MOUNT:-./config}:/config" # config files
+      - "${OUTPUT_MOUNT:-./output}:/output" # output for trajectories.txt
+    restart: unless-stopped
+    platform: linux/amd64
+    tty: true
+    environment:
+      - CUDA={CUDA:-11.4.3}
+#    deploy:
+#      resources:
+#        reservations:
+#          devices:
+#            - driver: nvidia
+#              count: 1
+#              capabilities: [ gpu ]

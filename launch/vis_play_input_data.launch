@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+    <!-- Enable simulated time -->
+    <param name="use_sim_time" value="true"/>
+
+    <!-- Play the bag file -->
+    <node name="rosbag_play" pkg="rosbag" type="play" args="--clock $(find multiviperfrog)/media/vision_blender_MICCAI_300_frames_10hz_2_moving_no_tools.bag" output="screen"/>
+
+    <!-- RViz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multiviperfrog)/rviz/Input_data_from_blender.rviz"/>
+
+</launch>
